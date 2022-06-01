@@ -1,0 +1,123 @@
+[For 1.8] - [Tutorial] Add a progressbar to your forum theme or ACP style
+
+* Tutorial credits: ic_myXMB 
+* Further credits to: Vintagedaddyo (as viewing their past provided examples of such inclusions helped me write this tutorial)
+* The tutorial is free to re-share as long as you retain any mentioned credits
+
+For this we use nprogress.js ( https://github.com/rstacruz/nprogress )
+
+
+Firstly, download the progress bar.zip folder as these are required files.
+
+Required files download:
+
+https://github.com/ic-myXMB/MYBB-TUT_Add_ProgressBar/blob/main/progressbar.zip
+
+
+You will then need to extract that progress bar.zip folder and it will give you a directory called "progressbar".
+
+
+Now, I suggest that you read through the rest of the tutorial before you decide exactly where you want to upload that particular required files directory as such will make more sense after such.
+
+
+FRONTEND THEME: *
+
+Edit headerinclude template:
+
+Find:
+[code]
+{$stylesheets}
+[/code]
+
+
+After add:
+
+[code]
+<!-- Progress Bar -->
+<link type="text/css" rel="stylesheet" href="{$mybb->asset_url}/images/progressbar/nprogress.css">
+<script type="text/javascript" src="{$mybb->asset_url}/images/progressbar/nprogress.js"></script>
+<script>
+	NProgress.configure({ showSpinner: false });
+		$(document).ready(function() {
+			NProgress.start();
+			NProgress.done();
+		});
+</script>
+[/code]
+
+* now this path to progress bar is if you say placed the progress bar directory inside the images directoryfor example: images/progressbar
+
+
+But, honestly that is sort of a bad form as then your images directory will get clogged up if you keep adding all sort of stuff to it as you add more and more themes and or tweaks and modifications, so you will see a lot of theme designers completely ignore using the images directory for their themes and instead opt to be more organized and cleaner by creating a themes directory in forum root directory and then housing theme specific directories inside that themes directory, if that makes sense.
+
+
+Example:
+
+Say you you have a theme with path like that and for this example we will say the theme specific directory name is "default" and you placed the progress bar directory within such...
+
+Then you modify the paths in inclusion snippet like so to reflect such paths:
+
+[code]
+<!-- Progress Bar -->
+<link type="text/css" rel="stylesheet" href="{$mybb->asset_url}/themes/default/progressbar/nprogress.css">
+<script type="text/javascript" src="{$mybb->asset_url}/themes/default/progressbar/nprogress.js"></script>
+<script>
+	NProgress.configure({ showSpinner: false });
+		$(document).ready(function() {
+			NProgress.start();
+			NProgress.done();
+		});
+</script>
+[/code]
+
+* now this path to progressbar is if you say placed the progress bar directory inside the themes/themename/ directory and in this example we say the example theme directory name is default for example: themes/default/progressbar
+
+Hopefully that all makes sense.
+
+
+
+ACP STYLE:
+
+Now, you can also add this progressbar to ACP styles though the inclusion is slightly different in the fact that you must add such where desired in your ACP specific Style directory.
+
+Say for example you placed the progressbar directory straight inside the ACP directory.
+
+Example:
+
+In style.php you would include:
+
+[code]
+        // ADD Progressbar
+        echo " <link rel=\"stylesheet\" href=\"styles/".$this->style."/progressbar/nprogress.css\"/>\n";
+        echo" <script type=\"text/javascript\" src=\"styles/".$this->style."/progressbar/nprogress.js\"></script>\n";
+
+        echo "<script>
+            NProgress.configure({ showSpinner: false });
+            $(document).ready(function() {
+            NProgress.start();
+            NProgress.done();
+            }); 
+            </script>\n";   
+[/code]
+
+
+
+But, say you want to be a bit more organized and since the progress bar is an include, you decide to keep all includes for that ACP style in an include specific directory for example "inc" then you modify path like so:
+
+In style.php you would include:
+
+
+[code]
+        // ADD Progressbar
+        echo " <link rel=\"stylesheet\" href=\"styles/".$this->style."/inc/progressbar/nprogress.css\"/>\n";
+        echo" <script type=\"text/javascript\" src=\"styles/".$this->style."/inc/progressbar/nprogress.js\"></script>\n";
+
+        echo "<script>
+            NProgress.configure({ showSpinner: false });
+            $(document).ready(function() {
+            NProgress.start();
+            NProgress.done();
+            }); 
+            </script>\n";   
+[/code]
+
