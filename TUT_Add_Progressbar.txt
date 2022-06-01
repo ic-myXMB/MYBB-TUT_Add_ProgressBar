@@ -121,3 +121,9 @@ In style.php you would include:
             </script>\n";   
 [/code]
 
+
+Final note for either form of inclusions: if you need to style the progress bar to be reflective of your theme colors, then you can do so by editing the progress bar styling in:
+
+nprogress.css
+
+
